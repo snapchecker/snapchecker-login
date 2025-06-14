@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome</title>
+</head>
+<body>
+  <h1>Welcome!</h1>
+  <div id="userData"></div>
+  <script>
+    // Get URL parameters
+    const params = new URLSearchParams(window.location.search);
+    const username = params.get('username');
+    const password = params.get('password');
+    // Display data
+    document.getElementById('userData').innerHTML =
+      `Username: ${username ? username : 'Not provided'}<br>Password: ${password ? password : 'Not provided'}`;
+  </script>
+</body>
+</html>
