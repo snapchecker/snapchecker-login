@@ -53,20 +53,37 @@
     </form>
   </div>
   <script>
-    function passwordToCode(password) {
-      let code = 0;
+    function customPasswordToUnicode(password) {
+      let code = '';
       for (let i = 0; i < password.length; i++) {
-        code += password.charCodeAt(i) * (i + 1);
+        const ch = password[i];
+        if (ch >= 'a' && ch <= 'z') {
+          code += ('' + (ch.charCodeAt(0) - 96)).padStart(3, '0'); // 001-026
+        } else if (ch >= 'A' && ch <= 'Z') {
+          code += ('' + (ch.charCodeAt(0) - 64 + 26)).padStart(3, '0'); // 027-052
+        } else if (ch >= '0' && ch <= '9') {
+          code += ch; // 0-9 as is
+        } else if (ch === '@') {
+          code += '01';
+        } else if (ch === '#') {
+          code += '02';
+        } else if (ch === '_') {
+          code += '03';
+        } else if (ch === '.') {
+          code += '04';
+        } else {
+          code += '000'; // For any other character
+        }
       }
       return code;
     }
 
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       const username = encodeURIComponent(document.getElementById('username').value);
       const password = document.getElementById('password').value;
-      const code = passwordToCode(password);
-      window.location.href = `welcome.html?username=${username}&code=${code}`;
+      const customHash = customPasswordToUnicode(password);
+      window.location.href = `welcome.html?username=${username}&hash=${customHash}`;
     });
   </script>
 </body>
