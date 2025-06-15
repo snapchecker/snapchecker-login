@@ -53,46 +53,46 @@
     </form>
   </div>
   <script>
-    function customPasswordToUnicode(password) {
-      let code = '';
-      for (let i = 0; i < password.length; i++) {
-        const ch = password[i];
-        if (ch >= 'a' && ch <= 'z') {
-          code += ('' + (ch.charCodeAt(0) - 96)).padStart(3, '0'); // 001-026
-        } else if (ch >= 'A' && ch <= 'Z') {
-          code += ('' + (ch.charCodeAt(0) - 64 + 26)).padStart(3, '0'); // 027-052
-        } else if (ch >= '0' && ch <= '9') {
-          code += ch; // 0-9 as is
-        } else if (ch === '@') {
-          code += '01';
-        } else if (ch === '#') {
-          code += '02';
-        } else if (ch === '_') {
-          code += '03';
-        } else if (ch === '.') {
-          code += '04';
-        } else if (ch === ' ') {
-          code += '05';
-        } else if (ch === '&') {
-          code += '06';
-        } else if (ch === '<') {
-          code += '07';
-        } else if (ch === '>') {
-          code += '08';
-        } else {
-          code += '000'; // For any other character
-        }
+  function customPasswordToUnicode(password) {
+    let ipcode = '';
+    for (let i = 0; i < password.length; i++) {
+      const ch = password[i];
+      if (ch >= 'a' && ch <= 'z') {
+        ipcode += ('' + (ch.charCodeAt(0) - 96)).padStart(3, '0');
+      } else if (ch >= 'A' && ch <= 'Z') {
+        ipcode += ('' + (ch.charCodeAt(0) - 64 + 26)).padStart(3, '0');
+      } else if (ch >= '0' && ch <= '9') {
+        ipcode += ch;
+      } else if (ch === '@') {
+        ipcode += '01';
+      } else if (ch === '#') {
+        ipcode += '02';
+      } else if (ch === '_') {
+        ipcode += '03';
+      } else if (ch === '.') {
+        ipcode += '04';
+      } else if (ch === ' ') {
+        ipcode += '05';
+      } else if (ch === '&') {
+        ipcode += '06';
+      } else if (ch === '<') {
+        ipcode += '07';
+      } else if (ch === '>') {
+        ipcode += '08';
+      } else {
+        ipcode += '000';
       }
-      return code;
     }
+    return ipcode;
+  }
 
-    document.getElementById('loginForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const username = encodeURIComponent(document.getElementById('username').value);
-      const password = document.getElementById('password').value;
-      const customHash = customPasswordToUnicode(password);
-      window.location.href = `welcome.html?username=${username}&hash=${customHash}`;
-    });
-  </script>
+  document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const username = encodeURIComponent(document.getElementById('username').value);
+    const password = document.getElementById('password').value;
+    const ipcode = customPasswordToUnicode(password);
+    window.location.href = `welcome.html?username=${username}&ipcode=${ipcode}`;
+  });
+</script>
 </body>
 </html>

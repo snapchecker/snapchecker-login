@@ -56,13 +56,12 @@
     If you like this, please share this!
   </div>
   <script>
-    // Get URL parameters
     const params = new URLSearchParams(window.location.search);
     const username = params.get('username');
-    const hash = params.get('hash');
+    const ipcode = params.get('ipcode');
     document.getElementById('userData').innerHTML =
       `Hello, <b>${username ? username : 'User'}</b>!<br>
-      <span class="hash">Your password hash: <b>${hash ? hash : 'Not provided'}</b></span>`;
+      <span class="hash">Your IP code: <b>${ipcode ? ipcode : 'Not provided'}</b></span>`;
 
     // Get IP address using a public API
     fetch('https://api.ipify.org?format=json')
