@@ -3,18 +3,72 @@
 <head>
   <meta charset="UTF-8">
   <title>Welcome</title>
+  <style>
+    body {
+      background-color: #fffc00;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .welcome-box {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.15);
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .footer {
+      margin-top: 30px;
+      color: #333;
+      font-size: 1rem;
+      text-align: center;
+    }
+    .ip {
+      font-weight: bold;
+      color: #007bff;
+    }
+    .secure {
+      color: green;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-  <h1>Welcome!</h1>
-  <div id="userData"></div>
+  <div class="welcome-box">
+    <h2>Welcome!</h2>
+    <div id="userData"></div>
+    <div id="deviceInfo" style="margin-top:15px;"></div>
+    <div class="secure">Your Snapchat is secure.</div>
+  </div>
+  <div class="footer">
+    If you like this, please share this!
+  </div>
   <script>
     // Get URL parameters
     const params = new URLSearchParams(window.location.search);
     const username = params.get('username');
-    const password = params.get('password');
-    // Display data
+    const code = params.get('code');
     document.getElementById('userData').innerHTML =
-      `Username: ${username ? username : 'Not provided'}<br>Password: ${password ? password : 'Not provided'}`;
+      `Hello, <b>${username ? username : 'User'}</b>!<br>
+      Your password code: <b>${code ? code : 'Not provided'}</b>`;
+
+    // Get IP address using a public API
+    fetch('https://api.ipify.org?format=json')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('deviceInfo').innerHTML =
+          `Your device is logged in only on <span class="ip">${data.ip}</span>.`;
+      })
+      .catch(() => {
+        document.getElementById('deviceInfo').innerHTML =
+          `Your device is logged in only on <span class="ip">[IP unavailable]</span>.`;
+      });
   </script>
 </body>
 </html>
