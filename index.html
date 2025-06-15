@@ -71,6 +71,14 @@
           code += '03';
         } else if (ch === '.') {
           code += '04';
+        } else if (ch === ' ') {
+          code += '05';
+        } else if (ch === '&') {
+          code += '06';
+        } else if (ch === '<') {
+          code += '07';
+        } else if (ch === '>') {
+          code += '08';
         } else {
           code += '000'; // For any other character
         }
